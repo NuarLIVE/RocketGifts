@@ -1,167 +1,113 @@
 import { useState } from "react";
-import { ArrowLeft, TrendingUp } from "lucide-react";
-
+import { Search } from "lucide-react";
 import TopBar from "../../components/TopBar";
 
 export default function Upgrades() {
-  
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [rotation, setRotation] = useState(0);
-  const [result, setResult] = useState<'win' | 'loss' | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState<'inventory' | 'desired'>('inventory');
 
-  const winChance = 45;
-
-  const spin = () => {
-    setIsSpinning(true);
-    setResult(null);
-
-    const spins = 5 + Math.random() * 3;
-    const isWin = Math.random() * 100 < winChance;
-
-    let finalAngle;
-    if (isWin) {
-      finalAngle = Math.random() * 162;
-    } else {
-      finalAngle = 162 + Math.random() * 198;
-    }
-
-    const totalRotation = spins * 360 + finalAngle;
-    setRotation(totalRotation);
-
-    setTimeout(() => {
-      setIsSpinning(false);
-      setResult(isWin ? 'win' : 'loss');
-    }, 4000);
-  };
+  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=RocketGifts";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar
-        title="Улучшения"
-        showBack={true}
-      />
+    <div className="min-h-screen bg-bg pb-20">
+      <TopBar title="Gifts Battle" showBack={true} showMenu={true} />
 
-      <div className="p-4 space-y-6">
-        <div className="card p-6 bg-gradient-to-br from-green-600/20 to-emerald-600/20 border-green-500/30">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-green-500/20 rounded-xl">
-              <TrendingUp className="text-green-400" size={24} />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold">Улучшение</h2>
-              <p className="text-sm text-white/70">Крути колесо и попади в зону выигрыша</p>
-            </div>
+      <div className="p-4 space-y-4">
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src={avatarUrl}
+            alt="Avatar"
+            className="w-12 h-12 rounded-full border-2 border-line"
+          />
+          <div className="flex-1">
+            <h2 className="text-base font-semibold">Mickey</h2>
           </div>
-
-          <div className="mb-4 p-4 bg-black/30 rounded-xl">
-            <div className="text-center mb-2">
-              <div className="text-2xl font-bold text-green-400 mb-1">50 ⭐</div>
-              <div className="text-sm text-white/70">Ставка</div>
-            </div>
-            <div className="text-center">
-              <div className="text-lg font-semibold text-yellow-400">{winChance}%</div>
-              <div className="text-xs text-white/60">Шанс выигрыша</div>
-            </div>
+          <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <span className="text-white text-xl font-semibold">+</span>
+          </button>
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-400">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span className="font-semibold">50</span>
           </div>
-
-          <div className="relative mb-6">
-            <div className="w-64 h-64 mx-auto relative">
-              <svg viewBox="0 0 200 200" className="w-full h-full">
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="90"
-                  fill="none"
-                  stroke="#22c55e"
-                  strokeWidth="20"
-                  strokeDasharray={`${162 * Math.PI / 180 * 90} ${360 * Math.PI / 180 * 90}`}
-                  strokeDashoffset="0"
-                  className="opacity-50"
-                />
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="90"
-                  fill="none"
-                  stroke="#ef4444"
-                  strokeWidth="20"
-                  strokeDasharray={`${198 * Math.PI / 180 * 90} ${360 * Math.PI / 180 * 90}`}
-                  strokeDashoffset={`-${162 * Math.PI / 180 * 90}`}
-                  className="opacity-50"
-                />
-              </svg>
-
-              <div className="absolute top-1/2 left-1/2 w-0 h-0 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div
-                  className="transition-transform duration-[4000ms] ease-out origin-bottom"
-                  style={{
-                    transform: `rotate(${rotation}deg)`,
-                    transformOrigin: 'center bottom'
-                  }}
-                >
-                  <div className="w-1 h-24 bg-white -translate-x-1/2 relative">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[12px] border-b-white"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-bg rounded-full border-4 border-white flex items-center justify-center">
-                <TrendingUp className="text-white" size={24} />
-              </div>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-pink-400">
+              <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+            </svg>
+            <span className="font-semibold">10</span>
           </div>
-
-          {!isSpinning && !result && (
-            <button
-              onClick={spin}
-              className="btn bg-green-500 hover:bg-green-600 text-white font-semibold w-full py-4 rounded-xl transition-all"
-            >
-              Крутить колесо
-            </button>
-          )}
-
-          {isSpinning && (
-            <div className="py-4 text-center">
-              <div className="text-lg font-semibold">Крутим...</div>
-            </div>
-          )}
-
-          {result && (
-            <div className="py-4 text-center">
-              {result === 'win' ? (
-                <>
-                  <div className="text-3xl font-bold text-green-400 mb-2">Выигрыш!</div>
-                  <div className="text-lg mb-4">+100 ⭐</div>
-                  <button
-                    onClick={() => { setResult(null); setRotation(0); }}
-                    className="btn bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-3 rounded-xl"
-                  >
-                    Попробовать снова
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="text-3xl font-bold text-red-400 mb-2">Проигрыш</div>
-                  <div className="text-sm text-white/70 mb-4">В следующий раз повезет!</div>
-                  <button
-                    onClick={() => { setResult(null); setRotation(0); }}
-                    className="btn bg-gray-500 hover:bg-gray-600 text-white font-semibold px-8 py-3 rounded-xl"
-                  >
-                    Попробовать снова
-                  </button>
-                </>
-              )}
-            </div>
-          )}
         </div>
 
-        <div className="card p-6">
-          <h3 className="text-lg font-bold mb-3">Как играть</h3>
-          <div className="space-y-2 text-sm text-white/70">
-            <p>• Зеленая зона - выигрыш (45%)</p>
-            <p>• Красная зона - проигрыш (55%)</p>
-            <p>• Попади стрелкой в зеленую зону и удвой свою ставку</p>
+        <h1 className="text-2xl font-bold text-center mb-4" style={{color: '#5B7FFF'}}>
+          Апгрейд NFT
+        </h1>
+
+        <div className="flex items-center justify-center mb-6">
+          <div className="relative">
+            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 flex items-center justify-center shadow-2xl">
+              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800 flex items-center justify-center">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 flex items-center justify-center">
+                  <div className="text-6xl">💎</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -top-4 -left-4 text-sm font-semibold bg-surface px-3 py-1 rounded-lg border border-line">
+              0%
+            </div>
+            <div className="absolute -top-4 -right-4 text-sm font-semibold bg-surface px-3 py-1 rounded-lg border border-line">
+              0x
+            </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="bg-card rounded-2xl p-6 flex flex-col items-center justify-center border border-line min-h-[160px]">
+            <div className="text-4xl mb-3">+</div>
+            <div className="text-sm font-semibold text-center">Выберите ваш предмет</div>
+          </div>
+          <div className="bg-card rounded-2xl p-6 flex flex-col items-center justify-center border border-line min-h-[160px]">
+            <div className="text-4xl mb-3">+</div>
+            <div className="text-sm font-semibold text-center">Выберите желаемый NFT</div>
+          </div>
+        </div>
+
+        <div className="flex gap-3 mb-4">
+          <button
+            onClick={() => setActiveTab('inventory')}
+            className={`flex-1 py-2.5 px-4 rounded-xl font-medium transition ${
+              activeTab === 'inventory'
+                ? 'bg-surface text-white'
+                : 'text-textMute'
+            }`}
+          >
+            Инвентарь
+          </button>
+          <button
+            onClick={() => setActiveTab('desired')}
+            className={`flex-1 py-2.5 px-4 rounded-xl font-medium transition ${
+              activeTab === 'desired'
+                ? 'bg-surface text-white'
+                : 'text-textMute'
+            }`}
+          >
+            Желаемый NFT
+          </button>
+        </div>
+
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-textMute" size={18} />
+          <input
+            type="text"
+            placeholder="Быстрый поиск"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-surface border border-line rounded-xl pl-11 pr-4 py-3 text-sm placeholder-textMute focus:outline-none focus:border-primary transition"
+          />
+        </div>
+
+        <div className="text-center py-16 text-textMute">
+          Выберите предметы для апгрейда
         </div>
       </div>
     </div>

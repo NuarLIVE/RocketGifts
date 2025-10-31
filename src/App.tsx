@@ -7,8 +7,6 @@ import Inventory from "./pages/Inventory";
 import History from "./pages/History";
 import Cases from "./pages/games/Cases";
 import Upgrades from "./pages/games/Upgrades";
-import Slots from "./pages/games/Slots";
-import Roulette from "./pages/games/Roulette";
 import FreeCase from "./pages/games/FreeCase";
 
 export default function App(){
@@ -25,8 +23,6 @@ export default function App(){
         <Route path="/history" element={<History/>} />
         <Route path="/game/cases" element={<Cases/>} />
         <Route path="/game/upgrades" element={<Upgrades/>} />
-        <Route path="/game/slots" element={<Slots/>} />
-        <Route path="/game/roulette" element={<Roulette/>} />
         <Route path="/game/free-case" element={<FreeCase/>} />
       </Routes>
       {isBottomVisible && <Navbar />}

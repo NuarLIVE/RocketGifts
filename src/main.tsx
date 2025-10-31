@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./styles.css";
 import LoaderScreen from "./components/LoaderScreen";
-import ThemeSwitcher from "./components/ThemeSwitcher";
 
 declare global { interface Window { Telegram: any } }
 
@@ -30,12 +29,7 @@ function Root() {
     );
   }
 
-  return (
-    <>
-      <ThemeSwitcher />
-      <App />
-    </>
-  );
+  return <App />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

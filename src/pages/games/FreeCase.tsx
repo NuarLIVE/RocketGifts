@@ -1,179 +1,142 @@
-import { useState, useEffect } from "react";
-import { ArrowLeft, Gift, Clock } from "lucide-react";
-
+import { useState } from "react";
 import TopBar from "../../components/TopBar";
 
-interface CaseItem {
-  id: string;
-  name: string;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
-  image: string;
-}
-
-const rarityColors = {
-  common: 'from-gray-500 to-gray-700',
-  rare: 'from-blue-500 to-blue-700',
-  epic: 'from-purple-500 to-purple-700',
-  legendary: 'from-yellow-500 to-orange-600'
-};
-
 export default function FreeCase() {
-  
-  const [isOpening, setIsOpening] = useState(false);
-  const [wonItem, setWonItem] = useState<CaseItem | null>(null);
-  const [canOpen, setCanOpen] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [promoCode, setPromoCode] = useState("");
 
-  const caseItems: CaseItem[] = [
-    { id: '1', name: 'Bonus Stars', rarity: 'common', image: '⭐' },
-    { id: '2', name: 'Free Spin Token', rarity: 'rare', image: '🎰' },
-    { id: '3', name: 'Lucky Coin', rarity: 'epic', image: '🪙' },
-    { id: '4', name: 'Jackpot Ticket', rarity: 'legendary', image: '🎫' },
+  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=RocketGifts";
+
+  const caseItems = [
+    {
+      id: 1,
+      name: "Durov's Cap Dipper",
+      image: "🧢",
+      starsValue: 377600,
+      ticketsValue: 1888
+    },
+    {
+      id: 2,
+      name: "Vintage Cigar The Gentleman",
+      image: "🎯",
+      starsValue: 8600,
+      ticketsValue: 43
+    },
+    {
+      id: 3,
+      name: "Record Player Emocore",
+      image: "💿",
+      starsValue: 7400,
+      ticketsValue: 37
+    },
+    {
+      id: 4,
+      name: "Diamond Ring Nocturne",
+      image: "💍",
+      starsValue: 6000,
+      ticketsValue: 30
+    },
+    {
+      id: 5,
+      name: "Sakura Flower Snowdrop",
+      image: "🌸",
+      starsValue: 5200,
+      ticketsValue: 26
+    },
+    {
+      id: 6,
+      name: "Jester Hat Hellscape",
+      image: "🃏",
+      starsValue: 4800,
+      ticketsValue: 24
+    }
   ];
 
-  useEffect(() => {
-    const lastOpen = localStorage.getItem('lastFreeCase');
-    if (lastOpen) {
-      const lastOpenTime = new Date(lastOpen).getTime();
-      const now = Date.now();
-      const timeDiff = 24 * 60 * 60 * 1000 - (now - lastOpenTime);
-
-      if (timeDiff > 0) {
-        setCanOpen(false);
-        setTimeLeft(Math.floor(timeDiff / 1000));
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!canOpen && timeLeft > 0) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            setCanOpen(true);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [canOpen, timeLeft]);
-
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${hours}ч ${minutes}м ${secs}с`;
-  };
-
-  const openCase = () => {
-    if (!canOpen) return;
-
-    setIsOpening(true);
-    setWonItem(null);
-
-    setTimeout(() => {
-      const randomItem = caseItems[Math.floor(Math.random() * caseItems.length)];
-      setWonItem(randomItem);
-      setIsOpening(false);
-
-      localStorage.setItem('lastFreeCase', new Date().toISOString());
-      setCanOpen(false);
-      setTimeLeft(24 * 60 * 60);
-    }, 3000);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar
-        title="Бесплатный кейс"
-        showBack={true}
-      />
+    <div className="min-h-screen bg-bg pb-20">
+      <TopBar title="Gifts Battle" showBack={true} showMenu={true} />
 
-      <div className="p-4 space-y-6">
-        <div className="card p-6 bg-gradient-to-br from-yellow-600/20 to-orange-600/20 border-yellow-500/30">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-yellow-500/20 rounded-xl">
-              <Gift className="text-yellow-400" size={24} />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold">Ежедневный кейс</h2>
-              <p className="text-sm text-white/70">Открывай каждый день бесплатно</p>
-            </div>
+      <div className="p-4 space-y-4">
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src={avatarUrl}
+            alt="Avatar"
+            className="w-12 h-12 rounded-full border-2 border-line"
+          />
+          <div className="flex-1">
+            <h2 className="text-base font-semibold">Mickey</h2>
           </div>
-
-          <div className="mb-4 p-4 bg-black/30 rounded-xl text-center">
-            <div className="text-2xl font-bold text-yellow-400 mb-1">Бесплатно</div>
-            <div className="text-sm text-white/70">Один раз в 24 часа</div>
+          <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <span className="text-white text-xl font-semibold">+</span>
+          </button>
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-400">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span className="font-semibold">50</span>
           </div>
-
-          {canOpen && !isOpening && !wonItem && (
-            <button
-              onClick={openCase}
-              className="btn bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-full py-4 rounded-xl transition-all"
-            >
-              Открыть бесплатный кейс
-            </button>
-          )}
-
-          {!canOpen && !isOpening && !wonItem && (
-            <div className="py-6 text-center">
-              <Clock className="mx-auto mb-3 text-yellow-400" size={48} />
-              <div className="text-lg font-semibold mb-2">Следующий кейс через:</div>
-              <div className="text-3xl font-bold text-yellow-400">{formatTime(timeLeft)}</div>
-              <div className="text-sm text-white/60 mt-3">Возвращайся завтра за новым призом</div>
-            </div>
-          )}
-
-          {isOpening && (
-            <div className="py-8 text-center">
-              <div className="animate-spin w-16 h-16 mx-auto mb-4 border-4 border-yellow-500 border-t-transparent rounded-full"></div>
-              <div className="text-lg font-semibold">Открываем кейс...</div>
-            </div>
-          )}
-
-          {wonItem && (
-            <div className="py-6 text-center">
-              <div className={`mx-auto w-32 h-32 rounded-2xl bg-gradient-to-br ${rarityColors[wonItem.rarity]} flex items-center justify-center text-6xl mb-4 animate-pulse`}>
-                {wonItem.image}
-              </div>
-              <div className="text-2xl font-bold mb-2">{wonItem.name}</div>
-              <div className="text-sm text-white/70 mb-4 capitalize">Редкость: {wonItem.rarity}</div>
-              <button
-                onClick={() => { setWonItem(null); setCanOpen(false); setTimeLeft(24 * 60 * 60); }}
-                className="btn bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-3 rounded-xl"
-              >
-                Забрать приз
-              </button>
-            </div>
-          )}
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-pink-400">
+              <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+            </svg>
+            <span className="font-semibold">10</span>
+          </div>
         </div>
 
-        <div className="card p-6">
-          <h3 className="text-lg font-bold mb-4">Возможные призы</h3>
+        <h1 className="text-base font-bold text-center mb-4 text-white">
+          БЕСПЛАТНЫЙ ЗА ПРОМОКОД
+        </h1>
+
+        <div className="flex items-center justify-center mb-6">
+          <div className="w-64 h-64 bg-gradient-to-br from-purple-600 via-purple-700 to-blue-700 rounded-3xl relative flex items-center justify-center shadow-2xl">
+            <div className="text-8xl">🎁</div>
+            <div className="absolute bottom-4 bg-black/70 backdrop-blur-sm px-4 py-1.5 rounded-lg text-xs font-bold">
+              GIFTS BATTLE
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <input
+            type="text"
+            placeholder="Введите код активации"
+            value={promoCode}
+            onChange={(e) => setPromoCode(e.target.value)}
+            className="w-full bg-surface border border-line rounded-xl px-4 py-3.5 text-sm placeholder-textMute focus:outline-none focus:border-primary transition"
+          />
+          <button className="btn-primary w-full py-3.5 rounded-xl font-semibold">
+            Активировать
+          </button>
+        </div>
+
+        <div className="mt-6">
+          <h2 className="text-base font-bold text-center mb-4 text-white">
+            СОДЕРЖИМОЕ КЕЙСА
+          </h2>
           <div className="grid grid-cols-2 gap-3">
             {caseItems.map((item) => (
-              <div
-                key={item.id}
-                className={`p-4 rounded-xl bg-gradient-to-br ${rarityColors[item.rarity]} border border-white/10`}
-              >
-                <div className="text-4xl text-center mb-2">{item.image}</div>
-                <div className="text-sm font-semibold text-center">{item.name}</div>
-                <div className="text-xs text-center text-white/70 capitalize mt-1">{item.rarity}</div>
+              <div key={item.id} className="bg-card rounded-xl overflow-hidden">
+                <div className="aspect-square bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center relative">
+                  <div className="text-6xl">{item.image}</div>
+                  <button className="absolute top-2 right-2 w-6 h-6 bg-black/50 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-white/70">ⓘ</span>
+                  </button>
+                </div>
+                <div className="p-3">
+                  <div className="text-xs font-medium mb-2 text-center">{item.name}</div>
+                  <div className="flex items-center justify-center gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-400">⭐</span>
+                      <span className="font-semibold">{item.starsValue.toLocaleString()}</span>
+                    </div>
+                    <span className="text-textMute">/</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-blue-400">💎</span>
+                      <span className="font-semibold">{item.ticketsValue}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="card p-6 bg-gradient-to-br from-green-600/20 to-emerald-600/20 border-green-500/30">
-          <div className="text-center">
-            <div className="text-3xl mb-3">🎁</div>
-            <h3 className="text-lg font-bold mb-2">Ежедневная награда</h3>
-            <p className="text-sm text-white/60">
-              Не пропускай ни одного дня и получай бонусы каждые 24 часа
-            </p>
           </div>
         </div>
       </div>
