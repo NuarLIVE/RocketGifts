@@ -1,62 +1,96 @@
 import { Link } from "react-router-dom";
+import { Box, TrendingUp, Cherry, Disc, Gift } from "lucide-react";
 import TopBar from "../components/TopBar";
-import CaseCard from "../components/CaseCard";
-import Section from "../components/Section";
 
 export default function Play(){
+  const games = [
+    {
+      to: "/game/cases",
+      title: "Кейсы",
+      description: "CS:GO стиль кейсов",
+      icon: Box,
+      gradient: "from-blue-600/20 to-cyan-600/20",
+      border: "border-blue-500/30"
+    },
+    {
+      to: "/game/upgrades",
+      title: "Улучшения",
+      description: "Крути колесо удачи",
+      icon: TrendingUp,
+      gradient: "from-green-600/20 to-emerald-600/20",
+      border: "border-green-500/30"
+    },
+    {
+      to: "/game/slots",
+      title: "Слоты",
+      description: "777, лимоны и больше",
+      icon: Cherry,
+      gradient: "from-red-600/20 to-pink-600/20",
+      border: "border-red-500/30"
+    },
+    {
+      to: "/game/roulette",
+      title: "Рулетка",
+      description: "Четное, нечетное, 0",
+      icon: Disc,
+      gradient: "from-purple-600/20 to-fuchsia-600/20",
+      border: "border-purple-500/30"
+    },
+    {
+      to: "/game/free-case",
+      title: "Бесплатный кейс",
+      description: "Ежедневная награда",
+      icon: Gift,
+      gradient: "from-yellow-600/20 to-orange-600/20",
+      border: "border-yellow-500/30"
+    }
+  ];
+
   return (
-    <div className="pb-24">
-      <TopBar title="StarCase" />
+    <div className="pb-24 min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
+      <TopBar title="Rocket Gifts" />
+
       <div className="p-4 space-y-4">
-
-        <Section title="Кейсы" to="#">
-          <div className="grid grid-cols-2 gap-3">
-            <CaseCard label="Бесплатно" tone="emerald"/>
-            <CaseCard label="0.12 💎 / 29 ⭐" tone="gold"/>
-            <CaseCard label="Скоро" />
-            <CaseCard label="Скоро" />
-          </div>
-        </Section>
-
-        <Section title="Улучшения" to="#">
-          <p className="sub mb-3">Выбери текущий подарок и желаемый приз — попробуй повысить шанс.</p>
-          <div className="flex items-center gap-3">
-            <div className="h-20 flex-1 rounded-2xl bg-white/5 border border-line flex items-center justify-center sub">Ваш подарок</div>
-            <div className="h-20 flex-1 rounded-2xl bg-white/5 border border-line flex items-center justify-center sub">Желаемый</div>
-          </div>
-          <button className="btn-emerald w-full mt-3">Улучшить подарок</button>
-        </Section>
-
-        <Section title="Битва рулеток">
-          <div className="rounded-2xl border border-line bg-gradient-to-r from-emerald/20 to-indigo/20 p-4 grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-white/10 h-24"></div>
-            <div className="rounded-xl bg-white/10 h-24"></div>
-          </div>
-        </Section>
-
-        <div className="card p-4 flex items-center justify-between">
-          <div>
-            <div className="h2">Бесплатный кейс</div>
-            <div className="sub">Заходи каждый день и забирай награду</div>
-          </div>
-          <button className="btn-primary">Открыть</button>
+        <div className="text-center py-6">
+          <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+            Выбери игру
+          </h1>
+          <p className="text-white/70">Открывай кейсы и выигрывай призы</p>
         </div>
 
-        <div className="card p-4">
-          <div className="h2 mb-2">Игры</div>
-          <div className="grid grid-cols-2 gap-3">
-            <Link to="/game/double" className="rounded-2xl border border-indigo/40 bg-gradient-to-br from-indigo/20 to-purple/20 p-4">
-              <div className="text-sm font-medium">Double</div>
-              <div className="sub">x2 / x14 • Живая лента</div>
+        <div className="grid gap-4">
+          {games.map((game) => (
+            <Link
+              key={game.to}
+              to={game.to}
+              className={`card p-6 bg-gradient-to-br ${game.gradient} border ${game.border} hover:scale-[1.02] transition-all duration-200 active:scale-[0.98]`}
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-black/30 rounded-2xl">
+                  <game.icon size={32} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-1">{game.title}</h3>
+                  <p className="text-sm text-white/70">{game.description}</p>
+                </div>
+                <div className="text-white/50">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
             </Link>
-            <div className="rounded-2xl border border-line bg-white/5 p-4 opacity-60">
-              <div className="text-sm font-medium">Slots</div>
-              <div className="sub">Скоро</div>
-            </div>
-          </div>
+          ))}
         </div>
 
+        <div className="card p-6 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border-gray-700/30">
+          <div className="text-center">
+            <div className="text-4xl mb-3">🎰</div>
+            <h3 className="text-lg font-bold mb-2">Больше игр скоро</h3>
+            <p className="text-sm text-white/60">Мы работаем над новыми захватывающими играми</p>
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }

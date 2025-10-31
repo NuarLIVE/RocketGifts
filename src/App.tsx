@@ -1,23 +1,33 @@
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Market from "./pages/Market";
 import Friends from "./pages/Friends";
 import Play from "./pages/Play";
 import Profile from "./pages/Profile";
-import Double from "./pages/games/Double";
+import Inventory from "./pages/Inventory";
+import History from "./pages/History";
+import Cases from "./pages/games/Cases";
+import Upgrades from "./pages/games/Upgrades";
+import Slots from "./pages/games/Slots";
+import Roulette from "./pages/games/Roulette";
+import FreeCase from "./pages/games/FreeCase";
 
 export default function App(){
   const loc = useLocation();
-  const isBottomVisible = !loc.pathname.startsWith('/game/');
+  const isBottomVisible = !loc.pathname.startsWith('/game/') && !loc.pathname.startsWith('/inventory') && !loc.pathname.startsWith('/history');
   return (
     <div className="min-h-screen pb-20">
       <Routes>
         <Route path="/" element={<Navigate to="/play" replace/>} />
-        <Route path="/market" element={<Market/>} />
         <Route path="/friends" element={<Friends/>} />
         <Route path="/play" element={<Play/>} />
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/game/double" element={<Double/>} />
+        <Route path="/inventory" element={<Inventory/>} />
+        <Route path="/history" element={<History/>} />
+        <Route path="/game/cases" element={<Cases/>} />
+        <Route path="/game/upgrades" element={<Upgrades/>} />
+        <Route path="/game/slots" element={<Slots/>} />
+        <Route path="/game/roulette" element={<Roulette/>} />
+        <Route path="/game/free-case" element={<FreeCase/>} />
       </Routes>
       {isBottomVisible && <Navbar />}
     </div>

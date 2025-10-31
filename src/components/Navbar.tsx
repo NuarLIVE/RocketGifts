@@ -1,9 +1,8 @@
-import { Gamepad2, Gift, User, Store } from "lucide-react";
+import { Gamepad2, Users, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const tabs = [
-  { to: "/market", name: "Маркет", icon: Store },
-  { to: "/friends", name: "Друзья", icon: Gift },
+  { to: "/friends", name: "Друзья", icon: Users },
   { to: "/play",   name: "Играть", icon: Gamepad2 },
   { to: "/profile",name: "Профиль",icon: User },
 ];
@@ -11,7 +10,7 @@ const tabs = [
 export default function Navbar() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-30 bg-bg/80 blur-panel border-t border-white/5">
-      <div className="grid grid-cols-4 px-2 py-2">
+      <div className="grid grid-cols-3 px-2 py-2">
         {tabs.map(({ name, icon: Icon, to }) => (
           <NavLink
             key={name}
