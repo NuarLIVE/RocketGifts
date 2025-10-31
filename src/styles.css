@@ -12,9 +12,13 @@ body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Ro
 
 /* Кнопки */
 .btn { @apply rounded-xl px-4 py-2.5 transition font-medium; }
-.btn-primary { @apply btn text-white hover:bg-blue-600 active:bg-blue-700; background-color: #007AFF; }
-.btn-ghost { @apply btn border border-transparent hover:bg-white/5; }
-.btn-secondary { @apply btn bg-card border border-line hover:bg-surface; }
+.btn-primary { @apply btn text-white; background-color: #007AFF; }
+.btn-primary:hover { background-color: #0066D6; }
+.btn-primary:active { background-color: #0055B3; }
+.btn-ghost { @apply btn border border-transparent; }
+.btn-ghost:hover { @apply bg-white/5; }
+.btn-secondary { @apply btn bg-card border border-line; }
+.btn-secondary:hover { @apply bg-surface; }
 
 /* Бейджи */
 .badge { @apply inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs bg-white/10 border border-white/10; }

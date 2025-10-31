@@ -4,14 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#17181C",
-        surface: "#1E1F24",
-        card: "#242731",
+        bg: "#0F0F0F",
+        surface: "#1A1A1A",
+        card: "#242424",
         line: "rgba(255,255,255,.08)",
-        textMute: "#8B92A0",
+        textMute: "#999999",
 
         // Акценты
         primary: "#007AFF",
+        blue: "#5B7FFF",
         gold: "#FFD166",
         purple: "#9B5CFF",
         indigo: "#5C7CFF",
