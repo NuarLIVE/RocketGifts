@@ -1,125 +1,92 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Wallet, Star, Package, History, ChevronRight } from "lucide-react";
+import { Star, Gift, History, Coins } from "lucide-react";
 import TopBar from "../components/TopBar";
 
 export default function Profile(){
-  const [balance, setBalance] = useState(250);
-  const [walletConnected, setWalletConnected] = useState(false);
+  const [balance, setBalance] = useState(50);
+  const [tickets, setTickets] = useState(10);
 
   const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=RocketGifts";
-  const username = "Игрок";
-  const telegramId = "@username";
-
-  const topUp = () => {
-    alert('Интеграция с Telegram Stars для пополнения баланса');
-  };
-
-  const connectWallet = () => {
-    setWalletConnected(true);
-    alert('Кошелек подключен');
-  };
+  const username = "Mickey";
+  const userId = "User ID 3051004";
 
   return (
-    <div className="pb-24 min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar title="Rocket Gifts" />
+    <div className="min-h-screen bg-bg pb-20">
+      <TopBar title="Gifts Battle" showMenu={true} />
 
-      <div className="p-4 space-y-4">
-        <div className="card p-6 bg-gradient-to-br from-yellow-600/20 to-orange-600/20 border-yellow-500/30">
-          <div className="flex items-center gap-4 mb-6">
+      <div className="p-4 space-y-3">
+        <div className="card p-4">
+          <div className="flex items-center gap-3 mb-4">
             <img
               src={avatarUrl}
               alt="Avatar"
-              className="w-20 h-20 rounded-full border-4 border-yellow-500/50 bg-white"
+              className="w-14 h-14 rounded-full border-2 border-line"
             />
             <div className="flex-1">
-              <h2 className="text-2xl font-bold">{username}</h2>
-              <p className="text-sm text-white/70">{telegramId}</p>
+              <h2 className="text-base font-semibold">{username}</h2>
+              <p className="text-sm text-textMute">{userId}</p>
             </div>
-          </div>
-
-          <div className="mb-4 p-4 bg-black/30 rounded-xl">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-sm text-white/70">Баланс</div>
-              <Star className="text-yellow-400" size={20} />
-            </div>
-            <div className="text-3xl font-bold text-yellow-400 mb-3">{balance} ⭐</div>
-            <button
-              onClick={topUp}
-              className="btn bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-full py-3 rounded-xl transition-all"
-            >
-              Пополнить баланс
-            </button>
-          </div>
-
-          {!walletConnected ? (
-            <button
-              onClick={connectWallet}
-              className="btn bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold w-full py-3 rounded-xl transition-all flex items-center justify-center gap-2"
-            >
-              <Wallet size={20} />
-              Подключить кошелек
-            </button>
-          ) : (
-            <div className="p-3 bg-green-500/20 border border-green-500/30 rounded-xl flex items-center gap-2">
-              <Wallet className="text-green-400" size={20} />
-              <div className="flex-1">
-                <div className="text-sm font-semibold text-green-400">Кошелек подключен</div>
-                <div className="text-xs text-white/60 font-mono">0x742d...9f2a</div>
+            <div className="flex items-center gap-3">
+              <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-white text-xl">+</span>
+              </button>
+              <div className="flex items-center gap-1.5">
+                <Star size={18} className="text-yellow-400 fill-yellow-400" />
+                <span className="font-semibold">{balance}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Gift size={18} className="text-pink-400" />
+                <span className="font-semibold">{tickets}</span>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
-        <div className="grid gap-3">
-          <Link
-            to="/inventory"
-            className="card p-4 hover:bg-white/10 transition-all flex items-center gap-4"
-          >
-            <div className="p-3 bg-blue-500/20 rounded-xl">
-              <Package className="text-blue-400" size={24} />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold">Инвентарь</div>
-              <div className="text-sm text-white/60">Мои NFT и призы</div>
-            </div>
-            <ChevronRight className="text-white/40" size={20} />
-          </Link>
+        <Link to="/inventory" className="card p-4 flex items-center gap-3 hover:bg-surface transition">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+            <Gift size={24} className="text-white" />
+          </div>
+          <span className="text-base font-medium">Инвентарь</span>
+        </Link>
 
-          <Link
-            to="/history"
-            className="card p-4 hover:bg-white/10 transition-all flex items-center gap-4"
-          >
-            <div className="p-3 bg-purple-500/20 rounded-xl">
-              <History className="text-purple-400" size={24} />
-            </div>
-            <div className="flex-1">
-              <div className="font-semibold">История</div>
-              <div className="text-sm text-white/60">Игры и транзакции</div>
-            </div>
-            <ChevronRight className="text-white/40" size={20} />
-          </Link>
-        </div>
+        <Link to="/history" className="card p-4 flex items-center gap-3 hover:bg-surface transition">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+            <History size={24} className="text-white" />
+          </div>
+          <span className="text-base font-medium">История</span>
+        </Link>
 
-        <div className="card p-6">
-          <h3 className="text-lg font-bold mb-4">Статистика</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-white/5 rounded-xl text-center">
-              <div className="text-2xl font-bold text-green-400">156</div>
-              <div className="text-xs text-white/60 mt-1">Выигрышей</div>
-            </div>
-            <div className="p-4 bg-white/5 rounded-xl text-center">
-              <div className="text-2xl font-bold text-red-400">89</div>
-              <div className="text-xs text-white/60 mt-1">Проигрышей</div>
-            </div>
-            <div className="p-4 bg-white/5 rounded-xl text-center">
-              <div className="text-2xl font-bold text-yellow-400">12</div>
-              <div className="text-xs text-white/60 mt-1">NFT в инвентаре</div>
-            </div>
-            <div className="p-4 bg-white/5 rounded-xl text-center">
-              <div className="text-2xl font-bold text-blue-400">1,250</div>
-              <div className="text-xs text-white/60 mt-1">Всего игр</div>
-            </div>
+        <Link to="/friends" className="card p-4 flex items-center gap-3 hover:bg-surface transition">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center">
+            <Coins size={24} className="text-white" />
+          </div>
+          <span className="text-base font-medium">Апгрейды</span>
+        </Link>
+
+        <button className="card p-4 flex items-center gap-3 hover:bg-surface transition w-full">
+          <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <span className="text-base font-medium">Активировать промокод</span>
+        </button>
+
+        <div className="card p-4">
+          <h3 className="text-sm font-medium text-textMute mb-3">Выбрать язык</h3>
+          <div className="flex gap-2">
+            <button className="px-4 py-2 rounded-xl bg-surface text-sm font-medium hover:bg-white/5 transition">
+              English
+            </button>
+            <button className="px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium">
+              Русский
+            </button>
+            <button className="px-4 py-2 rounded-xl bg-surface text-sm font-medium hover:bg-white/5 transition">
+              中文
+            </button>
           </div>
         </div>
       </div>

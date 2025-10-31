@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, History as HistoryIcon, TrendingUp, TrendingDown, Wallet } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { History as HistoryIcon, TrendingUp, TrendingDown, Wallet } from "lucide-react";
 import TopBar from "../components/TopBar";
 import { supabase, GameHistory, Transaction } from "../lib/supabase";
 
 type HistoryFilter = 'all' | 'wins' | 'losses' | 'deposits';
 
 export default function History() {
-  const navigate = useNavigate();
   const [filter, setFilter] = useState<HistoryFilter>('all');
   const [loading, setLoading] = useState(true);
 
@@ -61,14 +59,7 @@ export default function History() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar
-        title="История"
-        right={
-          <button onClick={() => navigate('/profile')} className="btn-ghost p-2">
-            <ArrowLeft size={20} />
-          </button>
-        }
-      />
+      <TopBar title="Gifts Battle" showBack={true} showMenu={true} />
 
       <div className="p-4 space-y-4">
         <div className="card p-6 bg-gradient-to-br from-purple-600/20 to-fuchsia-600/20 border-purple-500/30">

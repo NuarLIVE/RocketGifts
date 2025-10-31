@@ -7,15 +7,14 @@
 body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
 
 /* Карточки и стекло */
-.card { @apply bg-card rounded-2xl shadow-soft border border-line; }
-.blur-panel { backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); }
+.card { @apply bg-card rounded-2xl border border-line; }
+.blur-panel { backdrop-filter: blur(20px); background: rgba(23, 24, 28, 0.95); }
 
 /* Кнопки */
-.btn { @apply rounded-xl px-4 py-2 transition border border-white/10 bg-white/10 hover:bg-white/15 active:bg-white/20; }
-.btn-ghost { @apply rounded-xl px-4 py-2 transition border border-transparent hover:border-white/10; }
-.btn-primary { @apply rounded-xl px-4 py-2 font-semibold text-black; background: linear-gradient(135deg, #FFD166, #FF8B4D); }
-.btn-purple { @apply rounded-xl px-4 py-2 font-medium; background: linear-gradient(135deg, #5C7CFF, #9B5CFF); }
-.btn-emerald { @apply rounded-xl px-4 py-2 font-medium text-black; background: linear-gradient(135deg, #37D29B, #FFD166); }
+.btn { @apply rounded-xl px-4 py-2.5 transition font-medium; }
+.btn-primary { @apply btn bg-primary text-white hover:bg-blue-600 active:bg-blue-700; }
+.btn-ghost { @apply btn border border-transparent hover:bg-white/5; }
+.btn-secondary { @apply btn bg-card border border-line hover:bg-surface; }
 
 /* Бейджи */
 .badge { @apply inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs bg-white/10 border border-white/10; }

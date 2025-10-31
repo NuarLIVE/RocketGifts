@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Package } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import { supabase, InventoryItem } from "../lib/supabase";
 
@@ -12,7 +10,6 @@ const rarityColors = {
 };
 
 export default function Inventory() {
-  const navigate = useNavigate();
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,110 +41,71 @@ export default function Inventory() {
     { id: '1', name: 'Legendary Rocket NFT', rarity: 'legendary' as const, image: '🚀', game: 'Кейсы', date: '2024-10-28' },
     { id: '2', name: 'Gold Crown NFT', rarity: 'epic' as const, image: '👑', game: 'Слоты', date: '2024-10-27' },
     { id: '3', name: 'Silver Gem NFT', rarity: 'rare' as const, image: '💎', game: 'Кейсы', date: '2024-10-26' },
-    { id: '4', name: 'Bronze Star NFT', rarity: 'common' as const, image: '⭐', game: 'Бесплатный кейс', date: '2024-10-25' },
-    { id: '5', name: 'Ruby Stone NFT', rarity: 'rare' as const, image: '💍', game: 'Рулетка', date: '2024-10-24' },
-    { id: '6', name: 'Magic Coin NFT', rarity: 'common' as const, image: '🪙', game: 'Улучшения', date: '2024-10-23' },
   ];
 
+  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=RocketGifts";
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar
-        title="Инвентарь"
-        right={
-          <button onClick={() => navigate('/profile')} className="btn-ghost p-2">
-            <ArrowLeft size={20} />
-          </button>
-        }
-      />
+    <div className="min-h-screen bg-bg pb-20">
+      <TopBar title="Gifts Battle" showBack={true} showMenu={true} />
 
       <div className="p-4 space-y-4">
-        <div className="card p-6 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border-blue-500/30">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-blue-500/20 rounded-xl">
-              <Package className="text-blue-400" size={24} />
+        <div className="card p-4">
+          <div className="flex items-center gap-3">
+            <img
+              src={avatarUrl}
+              alt="Avatar"
+              className="w-14 h-14 rounded-full border-2 border-line"
+            />
+            <div className="flex-1">
+              <h2 className="text-base font-semibold">Mickey</h2>
             </div>
-            <div>
-              <h2 className="text-xl font-bold">Мои NFT</h2>
-              <p className="text-sm text-white/70">Все выигранные призы</p>
+            <div className="flex items-center gap-3">
+              <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-white text-xl">+</span>
+              </button>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-400">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span className="font-semibold">50</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-pink-400">
+                  <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                </svg>
+                <span className="font-semibold">10</span>
+              </div>
             </div>
-          </div>
-
-          <div className="p-4 bg-black/30 rounded-xl text-center">
-            <div className="text-3xl font-bold text-blue-400 mb-1">{mockInventory.length}</div>
-            <div className="text-sm text-white/70">Всего предметов</div>
           </div>
         </div>
 
         {loading ? (
-          <div className="text-center py-8 text-white/50">Загрузка...</div>
+          <div className="text-center py-8 text-textMute">Загрузка...</div>
         ) : mockInventory.length === 0 ? (
           <div className="card p-8 text-center">
             <div className="text-6xl mb-4">📦</div>
-            <div className="text-xl font-bold mb-2">Инвентарь пуст</div>
-            <div className="text-sm text-white/60 mb-4">
+            <div className="text-lg font-bold mb-2">Инвентарь пуст</div>
+            <div className="text-sm text-textMute">
               Начни играть и выигрывать NFT призы
             </div>
-            <button
-              onClick={() => navigate('/play')}
-              className="btn bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-xl"
-            >
-              Играть
-            </button>
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-3">
             {mockInventory.map((item) => (
               <div
                 key={item.id}
-                className={`card p-4 bg-gradient-to-br ${rarityColors[item.rarity]} border border-white/10 hover:scale-105 transition-transform`}
+                className={`card p-4 bg-gradient-to-br ${rarityColors[item.rarity]} border-0`}
               >
                 <div className="text-5xl text-center mb-3">{item.image}</div>
                 <div className="text-sm font-bold text-center mb-1">{item.name}</div>
-                <div className="text-xs text-center text-white/70 capitalize mb-2">
+                <div className="text-xs text-center text-white/70 capitalize">
                   {item.rarity}
-                </div>
-                <div className="text-xs text-center text-white/50 border-t border-white/10 pt-2">
-                  <div>Из: {item.game}</div>
-                  <div className="mt-1">{item.date}</div>
                 </div>
               </div>
             ))}
           </div>
         )}
-
-        <div className="card p-6">
-          <h3 className="text-lg font-bold mb-3">Распределение по редкости</h3>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 rounded-xl border border-yellow-500/30">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-500 to-orange-600"></div>
-                <span className="font-semibold">Legendary</span>
-              </div>
-              <span className="text-yellow-400 font-bold">1</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-600/20 to-fuchsia-600/20 rounded-xl border border-purple-500/30">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-700"></div>
-                <span className="font-semibold">Epic</span>
-              </div>
-              <span className="text-purple-400 font-bold">1</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 rounded-xl border border-blue-500/30">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-700"></div>
-                <span className="font-semibold">Rare</span>
-              </div>
-              <span className="text-blue-400 font-bold">2</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-gray-600/20 to-gray-700/20 rounded-xl border border-gray-500/30">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-gray-500 to-gray-700"></div>
-                <span className="font-semibold">Common</span>
-              </div>
-              <span className="text-gray-400 font-bold">2</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

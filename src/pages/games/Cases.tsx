@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Box } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
 import TopBar from "../../components/TopBar";
 
 interface CaseItem {
@@ -18,7 +18,7 @@ const rarityColors = {
 };
 
 export default function Cases() {
-  const navigate = useNavigate();
+  
   const [isOpening, setIsOpening] = useState(false);
   const [wonItem, setWonItem] = useState<CaseItem | null>(null);
 
@@ -46,11 +46,7 @@ export default function Cases() {
     <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
       <TopBar
         title="Кейсы"
-        right={
-          <button onClick={() => navigate('/play')} className="btn-ghost p-2">
-            <ArrowLeft size={20} />
-          </button>
-        }
+        showBack={true}
       />
 
       <div className="p-4 space-y-6">

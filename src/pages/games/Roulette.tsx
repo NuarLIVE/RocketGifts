@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { ArrowLeft, Disc } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
 import TopBar from "../../components/TopBar";
 
 type BetType = 'even' | 'odd' | 'zero' | null;
 
 export default function Roulette() {
-  const navigate = useNavigate();
+  
   const [selectedBet, setSelectedBet] = useState<BetType>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<number | null>(null);
@@ -53,11 +53,7 @@ export default function Roulette() {
     <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
       <TopBar
         title="Рулетка"
-        right={
-          <button onClick={() => navigate('/play')} className="btn-ghost p-2">
-            <ArrowLeft size={20} />
-          </button>
-        }
+        showBack={true}
       />
 
       <div className="p-4 space-y-6">

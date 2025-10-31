@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { ArrowLeft, Cherry } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
 import TopBar from "../../components/TopBar";
 
 const symbols = ['🍒', '🍋', '🍊', '🍇', '7️⃣', '💎', '⭐'];
 
 export default function Slots() {
-  const navigate = useNavigate();
+  
   const [reels, setReels] = useState(['🍒', '🍋', '🍊']);
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState<'win' | 'loss' | null>(null);
@@ -64,11 +64,7 @@ export default function Slots() {
     <div className="min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
       <TopBar
         title="Слоты"
-        right={
-          <button onClick={() => navigate('/play')} className="btn-ghost p-2">
-            <ArrowLeft size={20} />
-          </button>
-        }
+        showBack={true}
       />
 
       <div className="p-4 space-y-6">

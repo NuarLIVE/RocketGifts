@@ -1,95 +1,134 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, TrendingUp, Cherry, Disc, Gift } from "lucide-react";
 import TopBar from "../components/TopBar";
 
 export default function Play(){
-  const games = [
+  const [activeTab, setActiveTab] = useState<'all' | 'free' | 'limited'>('free');
+
+  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=RocketGifts";
+
+  const freeCases = [
     {
-      to: "/game/cases",
-      title: "Кейсы",
-      description: "CS:GO стиль кейсов",
-      icon: Box,
-      gradient: "from-blue-600/20 to-cyan-600/20",
-      border: "border-blue-500/30"
+      id: 1,
+      name: "Бесплатный за промокод",
+      image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&h=400&fit=crop",
+      price: "БЕСПЛАТНО",
+      gradient: "from-purple-600 to-blue-600"
     },
     {
-      to: "/game/upgrades",
-      title: "Улучшения",
-      description: "Крути колесо удачи",
-      icon: TrendingUp,
-      gradient: "from-green-600/20 to-emerald-600/20",
-      border: "border-green-500/30"
-    },
-    {
-      to: "/game/slots",
-      title: "Слоты",
-      description: "777, лимоны и больше",
-      icon: Cherry,
-      gradient: "from-red-600/20 to-pink-600/20",
-      border: "border-red-500/30"
-    },
-    {
-      to: "/game/roulette",
-      title: "Рулетка",
-      description: "Четное, нечетное, 0",
-      icon: Disc,
-      gradient: "from-purple-600/20 to-fuchsia-600/20",
-      border: "border-purple-500/30"
-    },
-    {
-      to: "/game/free-case",
-      title: "Бесплатный кейс",
-      description: "Ежедневная награда",
-      icon: Gift,
-      gradient: "from-yellow-600/20 to-orange-600/20",
-      border: "border-yellow-500/30"
+      id: 2,
+      name: "Бесплатный за пополнение от 1000",
+      image: "https://images.unsplash.com/photo-1549288403-2d4a3a3328c8?w=400&h=400&fit=crop",
+      price: "БЕСПЛАТНО",
+      gradient: "from-orange-600 to-red-600"
     }
   ];
 
   return (
-    <div className="pb-24 min-h-screen bg-gradient-to-b from-bg via-bg to-bg/95">
-      <TopBar title="Rocket Gifts" />
+    <div className="min-h-screen bg-bg pb-20">
+      <TopBar title="Gifts Battle" showMenu={true} />
 
       <div className="p-4 space-y-4">
-        <div className="text-center py-6">
-          <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-            Выбери игру
-          </h1>
-          <p className="text-white/70">Открывай кейсы и выигрывай призы</p>
-        </div>
-
-        <div className="grid gap-4">
-          {games.map((game) => (
-            <Link
-              key={game.to}
-              to={game.to}
-              className={`card p-6 bg-gradient-to-br ${game.gradient} border ${game.border} hover:scale-[1.02] transition-all duration-200 active:scale-[0.98]`}
-            >
-              <div className="flex items-center gap-4">
-                <div className="p-4 bg-black/30 rounded-2xl">
-                  <game.icon size={32} className="text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-1">{game.title}</h3>
-                  <p className="text-sm text-white/70">{game.description}</p>
-                </div>
-                <div className="text-white/50">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </div>
+        <div className="card p-4">
+          <div className="flex items-center gap-3">
+            <img
+              src={avatarUrl}
+              alt="Avatar"
+              className="w-14 h-14 rounded-full border-2 border-line"
+            />
+            <div className="flex-1">
+              <h2 className="text-base font-semibold">Mickey</h2>
+            </div>
+            <div className="flex items-center gap-3">
+              <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-white text-xl">+</span>
+              </button>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-400">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span className="font-semibold">50</span>
               </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="card p-6 bg-gradient-to-br from-gray-800/40 to-gray-900/40 border-gray-700/30">
-          <div className="text-center">
-            <div className="text-4xl mb-3">🎰</div>
-            <h3 className="text-lg font-bold mb-2">Больше игр скоро</h3>
-            <p className="text-sm text-white/60">Мы работаем над новыми захватывающими играми</p>
+              <div className="flex items-center gap-1.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-pink-400">
+                  <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                </svg>
+                <span className="font-semibold">10</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`px-4 py-2 rounded-xl font-medium whitespace-nowrap transition ${
+              activeTab === 'all'
+                ? 'bg-surface text-white'
+                : 'text-textMute'
+            }`}
+          >
+            Все
+          </button>
+          <button
+            onClick={() => setActiveTab('free')}
+            className={`px-4 py-2 rounded-xl font-medium whitespace-nowrap transition ${
+              activeTab === 'free'
+                ? 'bg-surface text-white'
+                : 'text-textMute'
+            }`}
+          >
+            Бесплатные Кейсы
+          </button>
+          <button
+            onClick={() => setActiveTab('limited')}
+            className={`px-4 py-2 rounded-xl font-medium whitespace-nowrap transition ${
+              activeTab === 'limited'
+                ? 'bg-surface text-white'
+                : 'text-textMute'
+            }`}
+          >
+            Лимитированные
+          </button>
+        </div>
+
+        {activeTab === 'free' && (
+          <>
+            <div className="text-sm font-semibold text-white mb-2">БЕСПЛАТНЫЕ КЕЙСЫ</div>
+            <div className="grid grid-cols-2 gap-3">
+              {freeCases.map((caseItem) => (
+                <Link
+                  key={caseItem.id}
+                  to="/game/cases"
+                  className="card overflow-hidden hover:scale-105 transition-transform"
+                >
+                  <div className={`aspect-square bg-gradient-to-br ${caseItem.gradient} relative flex items-center justify-center`}>
+                    <div className="text-6xl">🎁</div>
+                    <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-semibold">
+                      GIFTS BATTLE
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <div className="text-sm font-medium mb-2">{caseItem.name}</div>
+                    <div className="text-xs font-bold text-white">{caseItem.price}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
+
+        {activeTab === 'all' && (
+          <div className="text-center py-16 text-textMute">
+            Скоро появятся новые кейсы
+          </div>
+        )}
+
+        {activeTab === 'limited' && (
+          <div className="text-center py-16 text-textMute">
+            Лимитированные кейсы скоро
+          </div>
+        )}
       </div>
     </div>
   );
